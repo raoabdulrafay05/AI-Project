@@ -1,71 +1,71 @@
--- CREATE TABLE Patients (
---     PatientID SERIAL PRIMARY KEY,  -- Auto-incrementing Primary Key
---     FullName VARCHAR(100) NOT NULL,            -- Patient's full name
---     DOB DATE NOT NULL,                         -- Date of birth (cannot be null)
---     Gender VARCHAR(10) NOT NULL,               -- Gender (e.g., Male, Female)
---     ContactNo VARCHAR(15) NOT NULL,            -- Contact number (cannot be null)
---     Address VARCHAR(255),                      -- Patient's address
---     BloodGroup VARCHAR(10),                    -- Patient's blood group
---     MedicalHistory TEXT                        -- Medical history of the patient
--- );
+CREATE TABLE Patients (
+    PatientID SERIAL PRIMARY KEY,  -- Auto-incrementing Primary Key
+    FullName VARCHAR(100) NOT NULL,            -- Patient's full name
+    DOB DATE NOT NULL,                         -- Date of birth (cannot be null)
+    Gender VARCHAR(10) NOT NULL,               -- Gender (e.g., Male, Female)
+    ContactNo VARCHAR(15) NOT NULL,            -- Contact number (cannot be null)
+    Address VARCHAR(255),                      -- Patient's address
+    BloodGroup VARCHAR(10),                    -- Patient's blood group
+    MedicalHistory TEXT                        -- Medical history of the patient
+);
 
--- CREATE TABLE Departments (
---     DepartmentID SERIAL PRIMARY KEY,  -- Auto-incrementing Primary Key
---     DepartmentName VARCHAR(100) NOT NULL           -- Department name (e.g., Cardiology)
--- );
+CREATE TABLE Departments (
+    DepartmentID SERIAL PRIMARY KEY,  -- Auto-incrementing Primary Key
+    DepartmentName VARCHAR(100) NOT NULL           -- Department name (e.g., Cardiology)
+);
 
 
--- CREATE TABLE Doctors (
---     DoctorID SERIAL PRIMARY KEY,   -- Auto-incrementing Primary Key
---     FullName VARCHAR(100) NOT NULL,             -- Doctor's full name
---     Specialization VARCHAR(100) NOT NULL,       -- Doctor's specialization (e.g., Cardiologist)
---     PhoneNo VARCHAR(15) NOT NULL,               -- Doctor's phone number
---     Email VARCHAR(100),                         -- Doctor's email
---     DepartmentID INT,                           -- Foreign key to Departments table
---     FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID) ON DELETE SET NULL
--- );
+CREATE TABLE Doctors (
+    DoctorID SERIAL PRIMARY KEY,   -- Auto-incrementing Primary Key
+    FullName VARCHAR(100) NOT NULL,             -- Doctor's full name
+    Specialization VARCHAR(100) NOT NULL,       -- Doctor's specialization (e.g., Cardiologist)
+    PhoneNo VARCHAR(15) NOT NULL,               -- Doctor's phone number
+    Email VARCHAR(100),                         -- Doctor's email
+    DepartmentID INT,                           -- Foreign key to Departments table
+    FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID) ON DELETE SET NULL
+);
 
--- CREATE TABLE Appointments (
---     AppointmentID SERIAL PRIMARY KEY,  -- Auto-incrementing Primary Key
---     PatientID INT NOT NULL,                        -- Foreign key to Patients table
---     DoctorID INT NOT NULL,                         -- Foreign key to Doctors table
---     AppointmentDate DATE NOT NULL,                 -- Appointment date
---     TimeSlot VARCHAR(50) NOT NULL,                 -- Appointment time slot
---     Status VARCHAR(20) DEFAULT 'Scheduled',        -- Appointment status (Scheduled, Completed, etc.)
---     FOREIGN KEY (PatientID) REFERENCES Patients(PatientID) ON DELETE CASCADE, -- Cascade delete
---     FOREIGN KEY (DoctorID) REFERENCES Doctors(DoctorID) ON DELETE SET NULL  -- Set to NULL on doctor deletion
--- );
+CREATE TABLE Appointments (
+    AppointmentID SERIAL PRIMARY KEY,  -- Auto-incrementing Primary Key
+    PatientID INT NOT NULL,                        -- Foreign key to Patients table
+    DoctorID INT NOT NULL,                         -- Foreign key to Doctors table
+    AppointmentDate DATE NOT NULL,                 -- Appointment date
+    TimeSlot VARCHAR(50) NOT NULL,                 -- Appointment time slot
+    Status VARCHAR(20) DEFAULT 'Scheduled',        -- Appointment status (Scheduled, Completed, etc.)
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID) ON DELETE CASCADE, -- Cascade delete
+    FOREIGN KEY (DoctorID) REFERENCES Doctors(DoctorID) ON DELETE SET NULL  -- Set to NULL on doctor deletion
+);
 
--- CREATE TABLE MedicalRecords (
---     RecordID SERIAL PRIMARY KEY,      -- Auto-incrementing Primary Key
---     PatientID INT NOT NULL,                        -- Foreign key to Patients table
---     DoctorID INT NOT NULL,                         -- Foreign key to Doctors table
---     Diagnosis TEXT NOT NULL,                       -- Diagnosis information
---     Prescription TEXT,                             -- Prescription details
---     Date DATE NOT NULL,                            -- Date when the record was created
---     FOREIGN KEY (PatientID) REFERENCES Patients(PatientID) ON DELETE CASCADE,  -- Cascade delete
---     FOREIGN KEY (DoctorID) REFERENCES Doctors(DoctorID) ON DELETE SET NULL   -- Set to NULL on doctor deletion
--- );
+CREATE TABLE MedicalRecords (
+    RecordID SERIAL PRIMARY KEY,      -- Auto-incrementing Primary Key
+    PatientID INT NOT NULL,                        -- Foreign key to Patients table
+    DoctorID INT NOT NULL,                         -- Foreign key to Doctors table
+    Diagnosis TEXT NOT NULL,                       -- Diagnosis information
+    Prescription TEXT,                             -- Prescription details
+    Date DATE NOT NULL,                            -- Date when the record was created
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID) ON DELETE CASCADE,  -- Cascade delete
+    FOREIGN KEY (DoctorID) REFERENCES Doctors(DoctorID) ON DELETE SET NULL   -- Set to NULL on doctor deletion
+);
 
--- CREATE TABLE Bills (
---     BillID SERIAL PRIMARY KEY,        -- Auto-incrementing Primary Key
---     PatientID INT NOT NULL,                        -- Foreign key to Patients table
---     Amount DECIMAL(10, 2) NOT NULL,                -- Total bill amount
---     BillDate DATE NOT NULL,                        -- Date of the bill
---     PaymentStatus VARCHAR(20) DEFAULT 'Pending',   -- Payment status (Pending, Paid)
---     FOREIGN KEY (PatientID) REFERENCES Patients(PatientID) ON DELETE CASCADE  -- Cascade delete
--- );
+CREATE TABLE Bills (
+    BillID SERIAL PRIMARY KEY,        -- Auto-incrementing Primary Key
+    PatientID INT NOT NULL,                        -- Foreign key to Patients table
+    Amount DECIMAL(10, 2) NOT NULL,                -- Total bill amount
+    BillDate DATE NOT NULL,                        -- Date of the bill
+    PaymentStatus VARCHAR(20) DEFAULT 'Pending',   -- Payment status (Pending, Paid)
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID) ON DELETE CASCADE  -- Cascade delete
+);
 
--- CREATE TABLE Tests (
---     TestID SERIAL PRIMARY KEY,         -- Auto-incrementing Primary Key
---     PatientID INT NOT NULL,                         -- Foreign key to Patients table
---     DoctorID INT NOT NULL,                          -- Foreign key to Doctors table
---     TestType VARCHAR(100) NOT NULL,                 -- Type of test (e.g., Blood Test, X-ray)
---     TestResult TEXT NOT NULL,                       -- Result of the test
---     TestDate DATE NOT NULL,                         -- Date when the test was performed
---     FOREIGN KEY (PatientID) REFERENCES Patients(PatientID) ON DELETE CASCADE,   -- Cascade delete
---     FOREIGN KEY (DoctorID) REFERENCES Doctors(DoctorID) ON DELETE SET NULL     -- Set to NULL on doctor deletion
--- );
+CREATE TABLE Tests (
+    TestID SERIAL PRIMARY KEY,         -- Auto-incrementing Primary Key
+    PatientID INT NOT NULL,                         -- Foreign key to Patients table
+    DoctorID INT NOT NULL,                          -- Foreign key to Doctors table
+    TestType VARCHAR(100) NOT NULL,                 -- Type of test (e.g., Blood Test, X-ray)
+    TestResult TEXT NOT NULL,                       -- Result of the test
+    TestDate DATE NOT NULL,                         -- Date when the test was performed
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID) ON DELETE CASCADE,   -- Cascade delete
+    FOREIGN KEY (DoctorID) REFERENCES Doctors(DoctorID) ON DELETE SET NULL     -- Set to NULL on doctor deletion
+);
 
 
 INSERT INTO Departments (DepartmentName) VALUES 
