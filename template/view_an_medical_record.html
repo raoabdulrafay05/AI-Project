@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Record Details</title>
+  <link rel="stylesheet" href="/static/view_an_medical_record.css"> <!-- Link to your external CSS -->
+</head>
+<body>
+  <div class="container">
+    <h1>Medical Record Details</h1>
+
+    <!-- Check if the medical record exists -->
+    {% if medical_record %}
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Medical Record ID</td>
+            <td>{{ medical_record.recordid }}</td>
+          </tr>
+          <tr>
+            <td>Patient ID</td>
+            <td>{{ medical_record.patientid }}</td>
+          </tr>
+          <tr>
+            <td>Doctor ID</td>
+            <td>{{ medical_record.doctorid }}</td>
+          </tr>
+          <tr>
+            <td>Diagnosis</td>
+            <td>{{ medical_record.diagnosis }}</td>
+          </tr>
+          <tr>
+            <td>Prescription</td>
+            <td>{{ medical_record.prescription }}</td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td>{{ medical_record.date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    {% else %}
+      <p>Medical record not found.</p>
+    {% endif %}
+
+    <!-- Button to go back to the form to enter a new ID -->
+    <button class="back-button" onclick="window.location.href='/medical_records_management'">Back to Enter Medical Record ID</button>
+  </div>
+</body>
+</html>

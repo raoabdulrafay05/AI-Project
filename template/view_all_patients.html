@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Patients - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/view_all_patients.css">
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-users"></i>
+                <h3>Patient List</h3>
+            </div>
+            
+            <div class="nav-section-title">DIRECTORY</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/patient_management'">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Add New Patient</span>
+                </button>
+
+                <button class="action-btn active">
+                    <i class="fas fa-list-ul"></i>
+                    <span>View All Patients</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <div>
+                    <h1>Patient Directory</h1>
+                    <p>Complete list of registered patients.</p>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search by name...">
+                </div>
+            </div>
+
+            <div class="table-container">
+                
+                {% if patients %}
+                <table class="data-table" id="patientsTable">
+                    <thead>
+                        <tr>
+                            <th>Patient ID</th>
+                            <th>Full Name</th>
+                            <th>Gender</th>
+                            <th>Date of Birth</th>
+                            <th>Contact No</th>
+                            <th>Blood Group</th>
+                            <th>Medical History</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patients %}
+                        <tr>
+                            <td><span class="id-badge">#{{ patient.patientid }}</span></td>
+                            
+                            <td>
+                                <div class="user-info">
+                                    <span class="name-text">{{ patient.fullname }}</span>
+                                </div>
+                            </td>
+
+                            <td>
+                                <span class="gender-badge">{{ patient.gender }}</span>
+                            </td>
+
+                            <td>{{ patient.dob }}</td>
+
+                            <td>{{ patient.contactno }}</td>
+
+                            <td><span class="blood-badge">{{ patient.bloodgroup }}</span></td>
+
+                            <td class="history-cell">{{ patient.medicalhistory }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <p>No patients found.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("patientsTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Column 1 is Name
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

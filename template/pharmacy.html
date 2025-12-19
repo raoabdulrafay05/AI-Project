@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Management - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/pharmacy.css">
+
+    <style>
+        body {
+            /* Consistent Background */
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-pills"></i>
+                <h3>Pharmacy Ops</h3>
+            </div>
+            
+            <div class="nav-section-title">INVENTORY ACTIONS</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/view_pharmcay'">
+                    <i class="fas fa-history"></i>
+                    <span>Pharmacy Storage</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <h1>Pharmacy Management</h1>
+                <p>Issue medicines and manage inventory pricing.</p>
+            </div>
+
+            <div class="form-container">
+                <div class="form-card">
+                    <div class="card-header">
+                        <i class="fas fa-prescription-bottle-medical"></i>
+                        <h3>Add Medicine Entry</h3>
+                    </div>
+
+                    <form action="/add_medicine" method="POST" class="pharmacy-form">
+                        
+                        <div class="form-group full-width">
+                            <label for="medicine_name">Medicine Name</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-capsules input-icon"></i>
+                                <input type="text" id="medicine_name" name="medicine_name" placeholder="e.g. Panadol, Amoxicillin" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="patient_id">Patient ID</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-user-injured input-icon"></i>
+                                <input type="number" id="patient_id" name="patient_id" placeholder="ID of Patient receiving meds" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="quantity">Quantity</label>
+                                <input type="number" id="quantity" name="quantity" placeholder="Units" min="1" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="price_per_unit">Price per Unit</label>
+                                <div class="input-icon-wrapper">
+                                    <span class="currency-icon">$</span>
+                                    <input type="number" step="0.01" id="price_per_unit" name="price_per_unit" placeholder="0.00" style="padding-left: 35px;" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="add-btn">
+                            <i class="fas fa-plus-circle"></i> Add to Inventory
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+/* Add to your existing CSS file or create a new one (e.g., styles.css) */
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #7b6ee7, #6a5cd6);
+  color: #fff;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  background: rgba(180, 19, 19, 0.05); /* Slightly transparent background */
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Soft shadow */
+  padding: 50px;
+  text-align: center;
+}
+
+h1.title {
+  font-size: 3rem;
+  margin: 0;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 4px #ff512f, 0px 0px 25px #000000, 0px 0px 5px #dd2476; /* Colorful text shadow */
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  border: 1px solid #fff;
+}
+
+table th,
+table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #2fafff; /* Blue header */
+  color: white;
+}
+
+table tr:nth-child(even) {
+  background-color: #a54242; /* Light red rows */
+}
+
+table tr:hover {
+  background-color: #ddd; /* Hover effect for rows */
+}
+
+/* Button Styling */
+button.home-button {
+  padding: 15px 30px;
+  background: linear-gradient(
+    135deg,
+    #ff512f,
+    #dd2476
+  ) !important; /* Gradient background with important flag */
+  border: none;
+  border-radius: 50px; /* Rounded corners */
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, backgroun1d-color 0.3s ease,
+    box-shadow 0.3s ease; /* Smooth transitions */
+  margin-top: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
+  text-align: center; /* Centering text */
+  display: inline-block;
+}
+
+/* Button Hover Effect */
+button.home-button:hover {
+  background: linear-gradient(
+    135deg,
+    #ff512f,
+    #ff5a45
+  ) !important; /* Hover gradient */
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+  cursor: pointer; /* Ensure cursor changes to pointer */
+}
+
+/* Button Focus Effect */
+button.home-button:focus {
+  outline: none; /* Remove default outline */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Focus shadow */
+}
+
+/* Button Active Effect */
+button.home-button:active {
+  transform: translateY(2px); /* Slight push effect when clicked */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15); /* Reset shadow */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  button.home-button {
+    padding: 12px 25px; /* Smaller button on mobile */
+    font-size: 1rem; /* Adjust font size on smaller screens */
+  }
+}
+/* Button Styling */
+button {
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #ff512f, #dd2476);
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease,
+    box-shadow 0.3s ease;
+  margin-top: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Button Hover Effect */
+button:hover {
+  background: linear-gradient(135deg, #ff512f, #ff5a45);
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Focus Effect */
+button:focus {
+  outline: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Button Active Effect */
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .button-container button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .container {
+    width: 90%;
+  }
+}

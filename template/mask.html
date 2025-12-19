@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Entrance Monitor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mask.css') }}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+        /* Small override to make sure video fits perfectly */
+        #webcam {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            border-radius: 12px;
+            transform: scaleX(-1); /* Mirror effect for selfie view */
+        }
+    </style>
+  </head>
+  <body>
+    <header class="top-bar">
+      <div class="brand">
+        <div class="logo-icon"><i class="fa-solid fa-eye"></i></div>
+        <div>
+          <h1>Diagnosify Mask Check</h1>
+          <p>Entrance Node 01 • Active</p>
+        </div>
+      </div>
+
+      <div class="system-status">
+        <span id="clock">12:00 PM</span>
+        <div class="status-pill"><span class="pulse-dot"></span> Online</div>
+      </div>
+    </header>
+
+    <main class="dashboard-grid">
+      <section
+        class="video-section"
+        id="videoContainer"
+        style="
+          position: relative;
+          width: 100%;
+          aspect-ratio: 4/3;
+          max-height: 80vh;
+          overflow: hidden;
+          background: #000;
+          border-radius: 16px;
+        "
+      >
+        <div class="live-indicator">LIVE FEED</div>
+        <div class="scan-beam"></div>
+
+        <div class="bounding-box" id="aiBox" style="display: none; transition: all 0.1s ease;">
+          <div class="confidence-badge" id="aiLabel">Waiting...</div>
+        </div>
+
+        <video id="webcam" autoplay playsinline muted></video>
+        
+        <div class="video-placeholder" id="placeholder" style="z-index: 0">
+          <i class="fa-solid fa-video"></i>
+          <p>Connecting to Camera...</p>
+        </div>
+      </section>
+
+      <section class="info-panel">
+        <div class="status-card neutral" id="statusCard">
+          <div class="status-icon-ring">
+            <i class="fa-solid fa-magnifying-glass" id="statusIcon"></i>
+          </div>
+          <h2 id="mainStatusText">SYSTEM ACTIVE</h2>
+          <p id="subStatusText">Scanning for faces...</p>
+
+          <div class="confidence-meter">
+            <span>AI Confidence</span>
+            <div class="bar-bg">
+              <div class="bar-fill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="log-panel">
+          <h3><i class="fa-solid fa-clock-rotate-left"></i> Recent Activity</h3>
+          <ul class="log-list" id="logList"></ul>
+        </div>
+      </section>
+    </main>
+
+    <canvas id="captureCanvas" style="display: none;"></canvas>
+
+    <div id="chat-toggle" style="position: fixed; bottom: 20px; right: 20px; background: #2563eb; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 100;">
+      <i class="fa-solid fa-comment-medical" style="font-size: 24px;"></i>
+    </div>
+    
+
+    <script>
+      // --- 1. UI Elements ---
+      const video = document.getElementById("webcam");
+      const canvas = document.getElementById("captureCanvas");
+      const ctx = canvas.getContext("2d");
+      const placeholder = document.getElementById("placeholder");
+      
+      const aiBox = document.getElementById("aiBox");
+      const aiLabel = document.getElementById("aiLabel");
+      const videoContainer = document.getElementById("videoContainer");
+      
+      const statusCard = document.getElementById("statusCard");
+      const mainText = document.getElementById("mainStatusText");
+      const subText = document.getElementById("subStatusText");
+      const statusIcon = document.getElementById("statusIcon");
+      const confBar = document.querySelector(".bar-fill");
+      const logList = document.getElementById("logList");
+
+      // --- 2. Start Camera (Browser Side) ---
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
+          .then(function (stream) {
+            video.srcObject = stream;
+            video.onloadedmetadata = () => {
+              placeholder.style.display = "none"; // Hide loading icon
+            };
+          })
+          .catch(function (error) {
+            console.error("Camera denied:", error);
+            placeholder.innerHTML = "<p style='color:red'>Camera Access Denied</p>";
+          });
+      }
+
+      // --- 3. Processing Loop (Send Frames to Flask) ---
+      setInterval(async () => {
+        // Only run if video is playing and visible
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+          
+          // Capture current frame
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          
+          // Convert to Base64 JPEG (Quality 0.5 for speed)
+          const dataURL = canvas.toDataURL("image/jpeg", 0.5);
+
+          try {
+            // Send to backend
+            const response = await fetch("/detect_mask_feed", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ image: dataURL }),
+            });
+
+            const data = await response.json();
+
+            // Handle Response
+            if (data.success && data.detections.length > 0) {
+              // Get the most prominent face (first one)
+              const det = data.detections[0];
+              updateVisuals(det);
+            } else {
+              // No face detected
+              resetVisuals();
+            }
+          } catch (err) {
+            console.log("Skipping frame (server busy or error)");
+          }
+        }
+      }, 200); // 200ms = 5 FPS
+
+      // --- 4. Update UI Functions ---
+      function updateVisuals(det) {
+        // 1. Calculate Box Coordinates (Map Video Resolution to Display Size)
+        // Since we used object-fit: cover, calculation is slightly tricky but this is a close approximation
+        const displayW = video.clientWidth;
+        const displayH = video.clientHeight;
+        const actualW = video.videoWidth;
+        const actualH = video.videoHeight;
+        
+        const scaleX = displayW / actualW;
+        const scaleY = displayH / actualH;
+
+        // Position the bounding box
+        aiBox.style.display = "flex";
+        // Note: We mirror X because we mirrored the video with CSS scaleX(-1)
+        // If x1 is 100, flipped x1 becomes (width - x2)
+        const flippedX = actualW - det.x2; 
+        
+        aiBox.style.left = `${flippedX * scaleX}px`;
+        aiBox.style.top = `${det.y1 * scaleY}px`;
+        aiBox.style.width = `${(det.x2 - det.x1) * scaleX}px`;
+        aiBox.style.height = `${(det.y2 - det.y1) * scaleY}px`;
+
+        // 2. Color Logic
+        const isSafe = det.mask_detected; // Boolean from server
+        const color = isSafe ? "#10b981" : "#ef4444"; // Green : Red
+
+        // Update Box Styles
+        aiBox.style.borderColor = color;
+        aiBox.style.boxShadow = `0 0 20px ${color}`;
+        aiLabel.style.background = color;
+        aiLabel.innerText = `${det.label} (${det.confidence}%)`;
+
+        // Update Panel
+        updatePanel(isSafe, det.confidence);
+      }
+
+      function resetVisuals() {
+        aiBox.style.display = "none";
+        setVisualState("neutral");
+        mainText.innerText = "SCANNING";
+        subText.innerText = "Looking for faces...";
+        confBar.style.width = "0%";
+      }
+
+      function updatePanel(isSafe, confidence) {
+        confBar.style.width = `${confidence}%`;
+
+        if (isSafe) {
+          setVisualState("safe");
+          mainText.innerText = "ACCESS GRANTED";
+          subText.innerText = "Mask Verified";
+          logActivity(true);
+        } else {
+          setVisualState("danger");
+          mainText.innerText = "ENTRY DENIED";
+          subText.innerText = "Please wear a mask";
+          logActivity(false);
+        }
+      }
+
+      function setVisualState(state) {
+        const colors = { safe: "#10b981", danger: "#ef4444", neutral: "#64748b" };
+        const shadows = {
+          safe: "rgba(16, 185, 129, 0.2)",
+          danger: "rgba(239, 68, 68, 0.4)",
+          neutral: "rgba(100, 116, 139, 0.2)",
+        };
+        const icons = {
+            safe: "fa-solid fa-check",
+            danger: "fa-solid fa-xmark",
+            neutral: "fa-solid fa-magnifying-glass"
+        }
+
+        const color = colors[state];
+        videoContainer.style.borderColor = color;
+        videoContainer.style.boxShadow = `0 0 30px ${shadows[state]}`;
+        statusCard.className = `status-card ${state}`;
+        statusIcon.className = icons[state];
+      }
+
+      let lastLogState = null;
+      let lastLogTime = 0;
+
+      function logActivity(isSafe) {
+        const now = Date.now();
+        // Log only if state changed or 10 seconds passed (prevent spam)
+        if (lastLogState !== isSafe || now - lastLogTime > 10000) {
+          const li = document.createElement("li");
+          li.className = "log-item";
+          const timeStr = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+          li.innerHTML = `
+                <span class="time">${timeStr}</span>
+                <span class="result ${isSafe ? "safe" : "danger"}">
+                    ${isSafe ? "Mask Detected" : "No Mask"}
+                </span>
+            `;
+
+          logList.prepend(li);
+          if (logList.children.length > 5) logList.lastElementChild.remove();
+
+          lastLogState = isSafe;
+          lastLogTime = now;
+        }
+      }
+
+      // --- 5. Clock ---
+      setInterval(() => {
+        const now = new Date();
+        document.getElementById("clock").innerText = now.toLocaleTimeString(
+          [],
+          { hour: "2-digit", minute: "2-digit" }
+        );
+      }, 1000);
+      chatToggleBtn.addEventListener('click', () => {
+        chatWidget.style.display = 'flex';
+        chatToggleBtn.style.display = 'none';
+      });
+
+      chatCloseBtn.addEventListener('click', () => {
+        chatWidget.style.display = 'none';
+        chatToggleBtn.style.display = 'flex';
+      });
+
+
+      sendBtn.addEventListener('click', handleSend);
+      userInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') handleSend();
+      });
+
+    </script>
+  </body>
+</html>

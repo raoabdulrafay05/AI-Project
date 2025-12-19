@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Doctor Details</title>
+  <link rel="stylesheet" href="/static/view_doctor_details.css"> <!-- Link to your custom CSS file -->
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Doctor Details</h1>
+
+    <!-- Display individual doctor's details -->
+    <div class="doctor-details">
+      <p><strong>Name:</strong> {{ doctor.fullname }}</p>
+      <p><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+      <p><strong>Phone:</strong> {{ doctor.phoneno }}</p>
+      <p><strong>Email:</strong> {{ doctor.email }}</p>
+      <p><strong>Doctor Fee:</strong> {{ doctor.doctorfee }}</p>
+      <p><strong>Salary:</strong> {{ doctor.doctorsalary }}</p>
+      <p><strong>Department ID:</strong> {{ doctor.departmentid }}</p>
+    </div>
+
+    <!-- Buttons to navigate back -->
+    <div class="button-container">
+      <button class="home-button" onclick="window.location.href='/view_doctor_details'">Back to View Doctor Details</button>
+      <button class="home-button" onclick="window.location.href='/doctor_Management'">Back to Doctor Management</button>
+    </div>
+  </div>
+</body>
+</html>

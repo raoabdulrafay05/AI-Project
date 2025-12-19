@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Doctor - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/edit_doctor.css">
+
+    <style>
+        body {
+            /* Consistent Background */
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-user-md"></i>
+                <h3>Edit Staff</h3>
+            </div>
+            
+            <div class="nav-section-title">ACTIONS</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/doctor_management'">
+                    <i class="fas fa-user-nurse"></i>
+                    <span>Doctor Management</span>
+                </button>
+
+                <button class="action-btn" onclick="window.location.href='/view_all_doctors'">
+                    <i class="fas fa-list-ul"></i>
+                    <span>View All Doctors</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <h1>Edit Doctor Details</h1>
+                <p>Update professional profile, salary, and contact info.</p>
+            </div>
+
+            <div class="form-container">
+                <div class="form-card">
+                    <div class="card-header">
+                        <i class="fas fa-user-edit"></i>
+                        <h3>Update Doctor Profile</h3>
+                    </div>
+
+                    <form method="POST" action="/edit_doctor" class="edit-form">
+                        
+                        <div class="form-group full-width">
+                            <label for="doctor_id">Doctor ID (To Update)</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-id-badge input-icon"></i>
+                                <input type="text" name="doctor_id" placeholder="Enter Doctor ID" required>
+                            </div>
+                        </div>
+
+                        <div class="divider-line"></div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullname">Full Name</label>
+                                <input type="text" name="fullname" placeholder="Dr. Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="specialization">Specialization</label>
+                                <input type="text" name="specialization" placeholder="e.g. Cardiology" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phoneno">Phone No</label>
+                                <input type="text" name="phoneno" placeholder="Phone Number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" name="email" placeholder="Email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="doctorfee">Consultation Fee</label>
+                                <div class="input-icon-wrapper">
+                                    <span class="currency-icon">$</span>
+                                    <input type="number" name="doctorfee" placeholder="0.00" style="padding-left: 35px;" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="doctorsalary">Salary</label>
+                                <div class="input-icon-wrapper">
+                                    <span class="currency-icon">$</span>
+                                    <input type="number" name="doctorsalary" placeholder="0.00" style="padding-left: 35px;" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="departmentid">Department ID</label>
+                            <input type="text" name="departmentid" placeholder="Associated Dept ID" required>
+                        </div>
+
+                        <button type="submit" class="update-btn">
+                            <i class="fas fa-save"></i> Update Doctor Record
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

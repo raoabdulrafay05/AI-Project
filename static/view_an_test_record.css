@@ -1,0 +1,116 @@
+/* Reset and base setup */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  
+  /* Main card container */
+  .container {
+    max-width: 600px;
+    width: 100%;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    animation: fadeIn 0.8s ease;
+  }
+  
+  /* Heading */
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    color: #ffffff;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Test details */
+  .test-details {
+    text-align: left;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.05);
+  }
+  
+  .test-details p {
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+  }
+  
+  .test-details strong {
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  /* Buttons */
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .home-button {
+    background: linear-gradient(to right, #43cea2, #185a9d);
+    color: #ffffff;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  }
+  
+  .home-button:hover {
+    background: linear-gradient(to right, #30b192, #144e83);
+    transform: scale(1.05);
+  }
+  
+  /* Entry animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive */
+  @media (max-width: 500px) {
+    .container {
+      padding: 30px 20px;
+    }
+  
+    h1 {
+      font-size: 1.8rem;
+    }
+  
+    .test-details p {
+      font-size: 1rem;
+    }
+  
+    .home-button {
+      font-size: 0.95rem;
+    }
+  }
+  

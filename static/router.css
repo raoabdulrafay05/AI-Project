@@ -1,0 +1,218 @@
+/* --- 1. VARIABLES & RESET --- */
+:root {
+    --bg-dark: #030508;
+    --glass-bg: rgba(20, 25, 35, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --primary-neon: #00f3ff;   /* Cyan */
+    --secondary-neon: #bc13fe; /* Purple */
+    --text-main: #ffffff;
+    --text-muted: #8b9bb4;
+    --font-tech: 'Rajdhani', sans-serif; /* A futuristic tech font */
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    font-family: var(--font-tech);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: var(--text-main);
+    perspective: 1000px; /* Adds 3D depth */
+}
+
+/* --- 2. BACKGROUND ATMOSPHERE --- */
+/* Floating Orbs */
+.bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    z-index: -1;
+    animation: float 15s infinite ease-in-out;
+}
+
+.orb-1 {
+    width: 500px;
+    height: 500px;
+    background: var(--primary-neon);
+    top: -10%;
+    left: -10%;
+}
+
+.orb-2 {
+    width: 400px;
+    height: 400px;
+    background: var(--secondary-neon);
+    bottom: -5%;
+    right: -5%;
+    animation-delay: -5s;
+}
+
+/* Scanlines for texture */
+.scanlines {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* --- 3. GLASS PANEL (MAIN CONTAINER) --- */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 3.5rem 2.5rem;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Subtle hover effect on the card itself */
+.glass-panel:hover {
+    box-shadow: 0 30px 60px rgba(0, 243, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* --- 4. TYPOGRAPHY --- */
+header h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.highlight {
+    color: var(--primary-neon);
+    text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+}
+
+.description {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    font-weight: 500;
+}
+
+.status-indicator {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: var(--primary-neon);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- 5. BUTTONS (The Core Interactive Elements) --- */
+.action-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.cyber-btn {
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-main);
+    padding: 1.2rem;
+    font-family: var(--font-tech);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all var(--transition-speed);
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cyber-btn .icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+/* Primary Button (Cyan) */
+.cyber-btn.primary:hover {
+    border-color: var(--primary-neon);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4), inset 0 0 10px rgba(0, 243, 255, 0.1);
+    text-shadow: 0 0 8px var(--primary-neon);
+    transform: translateY(-2px);
+    background: rgba(0, 243, 255, 0.05);
+}
+
+/* Secondary Button (Purple) */
+.cyber-btn.secondary:hover {
+    border-color: var(--secondary-neon);
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.4), inset 0 0 10px rgba(188, 19, 254, 0.1);
+    text-shadow: 0 0 8px var(--secondary-neon);
+    transform: translateY(-2px);
+    background: rgba(188, 19, 254, 0.05);
+}
+
+/* Active/Click State */
+.cyber-btn:active {
+    transform: scale(0.98) translateY(0);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Focus State for Accessibility (Tab Navigation) */
+.cyber-btn:focus-visible {
+    border-color: white;
+    box-shadow: 0 0 0 3px rgba(0, 243, 255, 0.5);
+}
+
+/* --- 6. FOOTER --- */
+footer {
+    margin-top: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 1rem;
+}
+
+footer p {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* --- 7. ANIMATION KEYFRAMES --- */
+@keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -30px); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .glass-panel {
+        padding: 2rem;
+        width: 95%;
+    }
+    header h1 {
+        font-size: 2.2rem;
+    }
+}

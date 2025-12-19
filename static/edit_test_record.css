@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: linear-gradient(to right, #f0f9ff, #e0f7fa);
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 150, 136, 0.2);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid #d9f4f9;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #00796b;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #00796b;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid #b2dfdb;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  transition: border 0.3s ease, background 0.3s ease;
+}
+
+input:focus {
+  border-color: #26c6da;
+  background-color: #ffffff;
+  outline: none;
+}
+
+/* Primary action button */
+.submit-button {
+  background: #26c6da;
+  color: #ffffff;
+  padding: 12px 28px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-top: 10px;
+}
+
+.submit-button:hover {
+  background: #00acc1;
+  transform: translateY(-2px);
+}
+
+/* Button group */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.home-button {
+  background: none;
+  border: 2px solid #26c6da;
+  color: #26c6da;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.home-button:hover {
+  background-color: #26c6da;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 500px) {
+  .container {
+    padding: 30px 20px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .submit-button,
+  .home-button {
+    width: 100%;
+  }
+}

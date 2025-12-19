@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Medical Record - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/edit_medical_record_form.css">
+
+    <style>
+        body {
+            /* Consistent Background */
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-file-medical"></i>
+                <h3>Edit Record</h3>
+            </div>
+            
+            <div class="nav-section-title">ACTIONS</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/medical_records_management'">
+                    <i class="fas fa-file-medical-alt"></i>
+                    <span>Records Management</span>
+                </button>
+
+                <button class="action-btn" onclick="window.location.href='/view_all_medical_records'">
+                    <i class="fas fa-database"></i>
+                    <span>View All Records</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <h1>Edit Medical Record</h1>
+                <p>Update clinical notes, diagnosis details, and prescriptions.</p>
+            </div>
+
+            <div class="form-container">
+                <div class="form-card">
+                    <div class="card-header">
+                        <i class="fas fa-edit"></i>
+                        <h3>Update Record Details</h3>
+                    </div>
+
+                    <form method="POST" action="{{ url_for('edit_medical_record', medical_record_id=medical_record_id) }}" class="edit-form">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="PatientID">Patient ID</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-user-injured input-icon"></i>
+                                    <input type="text" id="PatientID" name="PatientID" placeholder="Enter Patient ID" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="DoctorID">Doctor ID</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-user-md input-icon"></i>
+                                    <input type="text" id="DoctorID" name="DoctorID" placeholder="Enter Doctor ID" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="Date">Record Date</label>
+                            <input type="date" id="Date" name="Date" required>
+                        </div>
+
+                        <div class="divider-line"></div>
+
+                        <div class="form-group full-width">
+                            <label for="Diagnosis">Diagnosis Details</label>
+                            <div class="textarea-wrapper">
+                                <i class="fas fa-stethoscope textarea-icon"></i>
+                                <textarea id="Diagnosis" name="Diagnosis" placeholder="Enter detailed diagnosis..." required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="Prescription">Prescription</label>
+                            <div class="textarea-wrapper">
+                                <i class="fas fa-pills textarea-icon"></i>
+                                <textarea id="Prescription" name="Prescription" placeholder="Enter medication and dosage..." required></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="update-btn">
+                            <i class="fas fa-save"></i> Update Medical Record
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

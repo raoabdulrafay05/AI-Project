@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedCore AI Interface</title>
+    <link rel="stylesheet" href="/static/router.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="scanlines"></div>
+
+    <main class="glass-panel">
+        <header>
+            <div class="status-indicator">System Online</div>
+            <h1>Diagnosify<span class="highlight">AI</span></h1>
+            <p class="description">Select a diagnostic protocol to begin analysis.</p>
+        </header>
+
+        <div class="action-area">
+            <button class="cyber-btn primary" onclick = "window.location.href='/mask_detection'" aria-label="Start Mass Detection Protocol">
+                <span class="btn-content">
+                    <span class="icon">✜</span> Mass Detection
+                </span>
+                <div class="glitch-effect"></div>
+            </button>
+            
+            <button class="cyber-btn secondary" onclick = "window.location.href = '/scanner'" aria-label="Identify Doctors">
+                <span class="btn-content">
+                    <span class="icon">☺</span> Identify Doctors
+                </span>
+                <div class="glitch-effect"></div>
+            </button>
+        </div>
+        
+        <footer>
+            <p>V.2.0.4 // Secure Connection</p>
+        </footer>
+    </main>
+
+</body>
+</html>

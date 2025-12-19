@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab Test Records - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/view_all_test.css" />
+
+    <style>
+        body {
+            /* Consistent Background */
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-microscope"></i>
+                <h3>Lab Ops</h3>
+            </div>
+            
+            <div class="nav-section-title">PATHOLOGY</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/lab_tests'">
+                    <i class="fas fa-file-medical-alt"></i>
+                    <span>Add Lab Test</span>
+                </button>
+
+                <button class="action-btn active">
+                    <i class="fas fa-vials"></i>
+                    <span>View All Tests</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <div>
+                    <h1>Test Records List</h1>
+                    <p>Archive of patient lab results and costs.</p>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search by Test Type...">
+                </div>
+            </div>
+
+            <div class="table-container">
+                
+                {% if tests %}
+                <table class="data-table" id="testTable">
+                    <thead>
+                        <tr>
+                            <th>Test ID</th>
+                            <th>Patient ID</th>
+                            <th>Test Type</th>
+                            <th>Test Result</th>
+                            <th>Test Date</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for test in tests %}
+                        <tr>
+                            <td><span class="id-badge">#{{ test.testid }}</span></td>
+                            
+                            <td>
+                                <div class="user-id-chip">
+                                    <i class="fas fa-user-injured"></i> {{ test.patientid }}
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="type-badge">
+                                    <i class="fas fa-flask"></i> {{ test.testtype }}
+                                </div>
+                            </td>
+
+                            <td class="result-cell" title="{{ test.testresult }}">
+                                {{ test.testresult }}
+                            </td>
+
+                            <td class="date-cell">{{ test.testdate }}</td>
+
+                            <td class="price-text">Rs {{ test.testprice }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-notes-medical"></i>
+                        <p>No lab records found.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("testTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[2]; // Column 2 is Test Type
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

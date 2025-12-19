@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Bill</title>
+    <link rel="stylesheet" href="/static/view_a_bill_record_form.css"> <!-- Your CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Search Bill Record</h1>
+        <form method="GET" action="/find_bill">
+            <label for="bill_id">Enter Bill ID:</label>
+            <input type="text" id="bill_id" name="bill_id" required placeholder="e.g., 1,2,3,4">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</body>
+</html>

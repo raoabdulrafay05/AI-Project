@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnosify - Hospital Management System</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+
+    <style>
+        /* 1. Apply Background to Body using Flask syntax */
+        body {
+            background-image: url("{{ url_for('static', filename='bg.png') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* 2. Make the wrapper see-through */
+        .dashboard-wrapper {
+            /* 0.85 means 85% visible, 15% see-through */
+            background-color: rgba(255, 255, 255, 0.85) !important;
+            
+            /* Ensure it covers the full height */
+            min-height: 100vh;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="{{ url_for('static', filename='bg.png') }}" alt="Background" class="bg-image">
+
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-eye"></i>
+                <h3>AI Vision</h3>
+            </div>
+            <p class="sidebar-desc">Advanced Diagnostics</p>
+            
+            <nav class="cv-nav">
+                <button class="cv-btn" onclick="window.location.href='/mask_detection'">
+                    <i class="fas fa-mask-face"></i>
+                    <span>Mask Detection</span>
+                </button>
+                
+                <button class="cv-btn" onclick="window.location.href='/scanner'">
+                    <i class="fas fa-user-md"></i>
+                    <span>Identify Doctor</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System v1.0</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="header">
+                <div class="brand">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Diagnosify Logo" class="logo">
+                    <div>
+                        <h1>Diagnosify</h1>
+                        <p>Hospital Management System</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="card" onclick="window.location.href='/patient_management'">
+                    <div class="card-icon patient-color"><i class="fas fa-procedures"></i></div>
+                    <h3>Patient Management</h3>
+                </div>
+                <div class="card" onclick="window.location.href='/doctor_management'">
+                    <div class="card-icon doctor-color"><i class="fas fa-user-nurse"></i></div>
+                    <h3>Doctor Management</h3>
+                </div>
+                <div class="card" onclick="window.location.href='/appointment_scheduling'">
+                    <div class="card-icon schedule-color"><i class="fas fa-calendar-check"></i></div>
+                    <h3>Appointments</h3>
+                </div>
+                <div class="card" onclick="window.location.href='/medical_records_management'">
+                    <div class="card-icon record-color"><i class="fas fa-file-medical"></i></div>
+                    <h3>Medical Records</h3>
+                </div>
+                <div class="card" onclick="window.location.href='/pharmacy_management'">
+                    <div class="card-icon pharmacy-color"><i class="fas fa-pills"></i></div>
+                    <h3>Pharmacy</h3>
+                </div>
+                <div class="card" onclick="window.location.href='/lab_tests'">
+                    <div class="card-icon lab-color"><i class="fas fa-flask"></i></div>
+                    <h3>Lab Tests</h3>
+                </div>
+                <div class="card" onclick="window.location.href='/billing'">
+                    <div class="card-icon bill-color"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <h3>Billing</h3>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <button id="chat-toggle" class="chat-toggle-btn">
+        <i class="fas fa-comment-medical"></i>
+    </button>
+
+    <div class="chat-widget" id="chat-widget">
+        <div class="chat-header">
+            <div class="header-info">
+                <div class="bot-avatar"><i class="fas fa-robot"></i></div>
+                <div>
+                    <h4>Diagnosify AI</h4>
+                    <span class="status-indicator"><span class="status-dot"></span>Online</span>
+                </div>
+            </div>
+            <i class="fas fa-times" id="chat-close"></i>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="message bot-message">
+                Hello! I am Diagnosify, your virtual hospital assistant. How can I help you?
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="user-input" class="chat-input" placeholder="Type your query...">
+            <button id="send-btn" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <style>
+        /* This makes the image act like a background */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1; /* Puts it BEHIND everything */
+        }
+
+        /* Make the wrapper transparent so we can see the image */
+        .dashboard-wrapper {
+            background-color: rgba(255, 255, 255, 0.85); /* 85% opacity white */
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+
+    <script>
+        // ... (Your existing script code) ...
+        const sendBtn = document.getElementById('send-btn');
+        const userInput = document.getElementById('user-input');
+        const chatBody = document.getElementById('chat-body');
+        const chatWidget = document.getElementById('chat-widget');
+        const chatToggleBtn = document.getElementById('chat-toggle');
+        const chatCloseBtn = document.getElementById('chat-close');
+
+        chatToggleBtn.addEventListener('click', () => {
+            chatWidget.classList.add('active');
+            chatToggleBtn.style.display = 'none';
+        });
+
+        chatCloseBtn.addEventListener('click', () => {
+            chatWidget.classList.remove('active');
+            setTimeout(() => { chatToggleBtn.style.display = 'flex'; }, 300);
+        });
+
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
+            messageDiv.textContent = text;
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        async function handleSend() {
+            const text = userInput.value.trim();
+            if (text === "") return;
+            addMessage(text, 'user');
+            userInput.value = "";
+            userInput.disabled = true;
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text }),
+                });
+                if (!response.ok) throw new Error('Network error');
+                const data = await response.json();
+                addMessage(data.response, 'bot');
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage("I'm having trouble connecting right now.", 'bot');
+            } finally {
+                userInput.disabled = false;
+                userInput.focus();
+            }
+        }
+        sendBtn.addEventListener('click', handleSend);
+        userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+    </script>
+</body>
+</html>

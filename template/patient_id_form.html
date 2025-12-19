@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Patient Information</title>
+  <link rel="stylesheet" href="/static/patient_id_form.css"> <!-- Link your existing CSS -->
+</head>
+<body>
+  <div class="container">
+    <h1>Enter Patient ID to View Information</h1>
+
+    <!-- Patient ID form -->
+    <form action="/view_patient_details" method="get">
+      <div class="form-group">
+        <label for="patient_id"><strong>Patient ID:</strong></label>
+        <input type="number" id="patient_id" name="patient_id" placeholder="Enter Patient ID" required>
+      </div>
+
+      <button type="submit" class="home-button">View Patient Details</button>
+    </form>
+
+    <!-- Button to navigate back to the previous page -->
+    <div class="button-container">
+      <button onclick="window.location.href='/view_all_patients'">Back to All Patients</button>
+      <button onclick="window.location.href='/'">Back to Home</button>
+    </div>
+  </div>
+</body>
+</html>

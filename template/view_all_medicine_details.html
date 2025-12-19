@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Inventory - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/view_all_medicine_details.css">
+
+    <style>
+        body {
+            /* Consistent Background */
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-pills"></i>
+                <h3>Pharmacy Ops</h3>
+            </div>
+            
+            <div class="nav-section-title">INVENTORY</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/pharmacy_management'">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Add Medicine</span>
+                </button>
+
+                <button class="action-btn active">
+                    <i class="fas fa-history"></i>
+                    <span>Pharmacy History</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <div>
+                    <h1>Pharmacy Inventory</h1>
+                    <p>Log of dispensed medicines and current stock pricing.</p>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search medicine name...">
+                </div>
+            </div>
+
+            <div class="table-container">
+                
+                {% if medicines_history %}
+                <table class="data-table" id="medicineTable">
+                    <thead>
+                        <tr>
+                            <th>Pharmacy ID</th>
+                            <th>Patient ID</th>
+                            <th>Medicine Name</th>
+                            <th>Quantity</th>
+                            <th>Price Per Unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for medicine in medicines_history %}
+                        <tr>
+                            <td><span class="id-badge">#{{ medicine.pharmacy_id }}</span></td>
+                            
+                            <td>
+                                <div class="user-id-chip">
+                                    <i class="fas fa-user-injured"></i> {{ medicine.patientid }}
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="med-info">
+                                    <div class="icon-circle"><i class="fas fa-capsules"></i></div>
+                                    <span class="med-name">{{ medicine.medicinename }}</span>
+                                </div>
+                            </td>
+
+                            <td>
+                                <span class="qty-badge">{{ medicine.quantity }} Units</span>
+                            </td>
+
+                            <td class="price-text">${{ medicine.priceperunit }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-prescription-bottle-alt"></i>
+                        <p>No medicine records found.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("medicineTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                // Search by Medicine Name (Column Index 2)
+                td = tr[i].getElementsByTagName("td")[2]; 
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

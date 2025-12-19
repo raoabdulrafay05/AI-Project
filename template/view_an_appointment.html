@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Appointment Details</title>
+  <link rel="stylesheet" href="/static/view_an_appointment.css"> <!-- Link to your custom CSS file -->
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Appointment Details</h1>
+
+    <!-- Display individual appointment's details -->
+    <div class="appointment-details">
+      <p><strong>Patient ID:</strong> {{ appointment.patientid }}</p>
+      <p><strong>Doctor ID:</strong> {{ appointment.doctorid }}</p>
+      <p><strong>Appointment Date:</strong> {{ appointment.appointmentdate }}</p>
+      <p><strong>Time Slot:</strong> {{ appointment.timeslot }}</p>
+      <p><strong>Status:</strong> {{ appointment.status }}</p>
+    </div>
+
+    <!-- Buttons to navigate back -->
+    <div class="button-container">
+      <button class="home-button" onclick="window.location.href='/view_appointments'">Back to View Appointments</button>
+      <button class="home-button" onclick="window.location.href='/appointment_scheduling'">Back to Appointment Management</button>
+    </div>
+  </div>
+</body>
+</html>

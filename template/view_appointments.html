@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Appointments - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/view_appointments.css">
+
+    <style>
+        body {
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-calendar-check"></i>
+                <h3>Scheduling</h3>
+            </div>
+            
+            <div class="nav-section-title">APPOINTMENTS</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/appointment_scheduling'">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Book Appointment</span>
+                </button>
+
+                <button class="action-btn active">
+                    <i class="fas fa-list-alt"></i>
+                    <span>View Schedule</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <div>
+                    <h1>Appointment Schedule</h1>
+                    <p>Track patient visits and doctor availability.</p>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search by ID...">
+                </div>
+            </div>
+
+            <div class="table-container">
+                
+                {% if appointments %}
+                <table class="data-table" id="apptTable">
+                    <thead>
+                        <tr>
+                            <th>Appt ID</th>
+                            <th>Patient ID</th>
+                            <th>Doctor ID</th>
+                            <th>Date</th>
+                            <th>Time Slot</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for appointment in appointments %}
+                        <tr>
+                            <td><span class="id-badge">#{{ appointment.appointmentid }}</span></td>
+                            
+                            <td>
+                                <div class="user-id-chip patient">
+                                    <i class="fas fa-user-injured"></i> {{ appointment.patientid }}
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="user-id-chip doctor">
+                                    <i class="fas fa-user-md"></i> {{ appointment.doctorid }}
+                                </div>
+                            </td>
+
+                            <td class="date-cell">{{ appointment.appointmentdate }}</td>
+
+                            <td class="time-cell"><i class="far fa-clock"></i> {{ appointment.timeslot }}</td>
+
+                            <td>
+                                {% if appointment.status == 'Scheduled' %}
+                                    <span class="status-badge green">{{ appointment.status }}</span>
+                                {% elif appointment.status == 'Pending' %}
+                                    <span class="status-badge orange">{{ appointment.status }}</span>
+                                {% else %}
+                                    <span class="status-badge gray">{{ appointment.status }}</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon edit" onclick="window.location.href='/edit_appointment?id={{ appointment.appointmentid }}'" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon delete" onclick="window.location.href='/delete_appointment?id={{ appointment.appointmentid }}'" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-times"></i>
+                        <p>No appointments found.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("apptTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                // Search by Patient ID (Column Index 1) or Appointment ID (Index 0)
+                td = tr[i].getElementsByTagName("td")[0]; 
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

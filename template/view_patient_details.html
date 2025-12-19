@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Details</title>
+  <link rel="stylesheet" href="/static/view_patient_details.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Patient Details</h1>
+
+    <!-- Display patient details -->
+    <div class="patient-details">
+      <p><strong>Patient ID:</strong> {{ patient.patientid }}</p>
+      <p><strong>Full Name:</strong> {{ patient.fullname }}</p>
+      <p><strong>Date of Birth:</strong> {{ patient.dob }}</p>
+      <p><strong>Gender:</strong> {{ patient.gender }}</p>
+      <p><strong>Contact No:</strong> {{ patient.contactno }}</p>
+      <p><strong>Address:</strong> {{ patient.address }}</p>
+      <p><strong>Blood Group:</strong> {{ patient.bloodgroup }}</p>
+      <p><strong>Medical History:</strong> {{ patient.medicalhistory }}</p>
+    </div>
+
+    <div class="button-container">
+      <button onclick="window.location.href='/patient_management'">Back to Patients Management</button>
+      <button onclick="window.location.href='/'">Back to Home</button>
+    </div>
+  </div>
+</body>
+</html>

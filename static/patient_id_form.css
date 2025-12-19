@@ -1,0 +1,137 @@
+/* Global Styling */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(
+    135deg,
+    #00bcd4,
+    #009688
+  ); /* New Gradient for a cool, refreshing look */
+  color: #fff;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(0, 0, 0, 0.3); /* Slightly dark transparent background */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  padding: 40px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+}
+
+form input {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.2); /* Light background for input */
+  color: #fff;
+  font-size: 1rem;
+}
+
+form input::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Lighter placeholder */
+}
+
+form button {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(
+    135deg,
+    #00bcd4,
+    #009688
+  ); /* New gradient for buttons */
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Soft shadow effect */
+}
+
+form button:hover {
+  background: linear-gradient(
+    135deg,
+    #009688,
+    #00bcd4
+  ); /* Hover effect for gradient */
+  transform: translateY(-4px); /* Hover lift effect */
+}
+
+form button:focus {
+  outline: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4); /* Focused button shadow */
+}
+
+form button:active {
+  transform: translateY(2px); /* Slight push effect when clicked */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Reset shadow */
+}
+
+/* Button Styling */
+button {
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #00bcd4, #009688); /* Button gradient */
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease,
+    box-shadow 0.3s ease;
+  margin-top: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Button Hover Effect */
+button:hover {
+  background: linear-gradient(
+    135deg,
+    #009688,
+    #00bcd4
+  ); /* Reverse hover gradient */
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+/* Button Focus Effect */
+button:focus {
+  outline: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Focus shadow */
+}
+
+/* Button Active Effect */
+button:active {
+  transform: translateY(2px); /* Slight push effect when clicked */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15); /* Reset shadow */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+  button {
+    padding: 12px 25px; /* Smaller button on mobile */
+    font-size: 1rem; /* Adjust font size on smaller screens */
+  }
+}

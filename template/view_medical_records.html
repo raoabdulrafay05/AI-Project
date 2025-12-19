@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Records - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/view_medical_records.css">
+
+    <style>
+        body {
+            /* Consistent Background */
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-file-medical"></i>
+                <h3>Records Ops</h3>
+            </div>
+            
+            <div class="nav-section-title">DATABASE</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/medical_records_management'">
+                    <i class="fas fa-file-medical-alt"></i>
+                    <span>Add New Record</span>
+                </button>
+
+                <button class="action-btn active">
+                    <i class="fas fa-database"></i>
+                    <span>View All Records</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <div>
+                    <h1>Medical Records</h1>
+                    <p>Patient diagnosis history and doctor logs.</p>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search by Diagnosis or ID...">
+                </div>
+            </div>
+
+            <div class="table-container">
+                
+                {% if MedicalRecords %}
+                <table class="data-table" id="recordsTable">
+                    <thead>
+                        <tr>
+                            <th>Record ID</th>
+                            <th>Patient ID</th>
+                            <th>Doctor ID</th>
+                            <th>Diagnosis</th>
+                            <th>Date</th>
+                            <th>Actions</th> </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in MedicalRecords %}
+                        <tr>
+                            <td><span class="id-badge">#{{ record.recordid }}</span></td>
+                            
+                            <td>
+                                <div class="user-id-chip patient">
+                                    <i class="fas fa-user-injured"></i> {{ record.patientid }}
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="user-id-chip doctor">
+                                    <i class="fas fa-user-md"></i> {{ record.doctorid }}
+                                </div>
+                            </td>
+
+                            <td class="diagnosis-cell">
+                                <span class="diagnosis-text" title="{{ record.diagnosis }}">
+                                    {{ record.diagnosis }}
+                                </span>
+                            </td>
+
+                            <td class="date-cell">
+                                <i class="far fa-calendar-alt"></i> {{ record.date }}
+                            </td>
+
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon edit" onclick="window.location.href='/enter_medical_record_id?id={{ record.recordid }}'" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon delete" onclick="window.location.href='/delete_medical_record?id={{ record.recordid }}'" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>No medical records found.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("recordsTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                // Search by Diagnosis (Column 3)
+                td = tr[i].getElementsByTagName("td")[3]; 
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

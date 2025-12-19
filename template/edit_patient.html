@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Patient - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/edit_patient.css">
+
+    <style>
+        body {
+            /* Consistent Background */
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-user-edit"></i>
+                <h3>Edit Record</h3>
+            </div>
+            
+            <div class="nav-section-title">ACTIONS</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/patient_management'">
+                    <i class="fas fa-procedures"></i>
+                    <span>Patient Management</span>
+                </button>
+
+                <button class="action-btn" onclick="window.location.href='/view_all_patients'">
+                    <i class="fas fa-list-ul"></i>
+                    <span>View All Patients</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <h1>Edit Patient Details</h1>
+                <p>Update personal information and medical history.</p>
+            </div>
+
+            <div class="form-container">
+                <div class="form-card">
+                    <div class="card-header">
+                        <i class="fas fa-id-card-alt"></i>
+                        <h3>Update Information</h3>
+                    </div>
+
+                    <form method="POST" action="/edit_patient" class="edit-form">
+                        
+                        <div class="form-group full-width">
+                            <label for="patient_id">Patient ID (To Update)</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-fingerprint input-icon"></i>
+                                <input type="text" name="patient_id" placeholder="Enter ID to update" required>
+                            </div>
+                        </div>
+
+                        <div class="divider-line"></div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="FullName">Full Name</label>
+                                <input type="text" name="FullName" placeholder="Full Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="DOB">Date of Birth</label>
+                                <input type="date" name="DOB" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="Gender">Gender</label>
+                                <input type="text" name="Gender" placeholder="Male / Female" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ContactNo">Contact No</label>
+                                <input type="text" name="ContactNo" placeholder="Phone Number" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="Address">Address</label>
+                                <input type="text" name="Address" placeholder="Residential Address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="BloodGroup">Blood Group</label>
+                                <input type="text" name="BloodGroup" placeholder="e.g. O+, A-" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="MedicalHistory">Medical History</label>
+                            <div class="textarea-wrapper">
+                                <textarea name="MedicalHistory" placeholder="Update medical notes here..."></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="update-btn">
+                            <i class="fas fa-save"></i> Update Patient Record
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

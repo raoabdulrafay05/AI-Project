@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Appointment - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/appointment_delete_id_form.css">
+
+    <style>
+        body {
+            /* Consistent Background */
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-calendar-times"></i>
+                <h3>Cancel Appt</h3>
+            </div>
+            
+            <div class="nav-section-title">ACTIONS</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/appointment_scheduling'">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>New Appointment</span>
+                </button>
+
+                <button class="action-btn" onclick="window.location.href='/view_appointments'">
+                    <i class="fas fa-list-alt"></i>
+                    <span>View Schedule</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <h1>Delete Appointment</h1>
+                <p>Permanently remove a scheduled appointment.</p>
+            </div>
+
+            <div class="form-container">
+                <div class="form-card delete-card">
+                    
+                    <div class="card-header-center">
+                        <div class="icon-bg">
+                            <i class="fas fa-calendar-minus"></i>
+                        </div>
+                        <h3>Cancellation Confirmation</h3>
+                        <p class="warning-text">This will remove the appointment from the calendar permanently.</p>
+                    </div>
+
+                    <form action="/delete_appointment" method="POST" class="delete-form">
+                        
+                        <div class="form-group">
+                            <label for="appointment_id">Appointment ID</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-hashtag input-icon"></i>
+                                <input type="number" name="appointment_id" id="appointment_id" placeholder="Enter ID (e.g., 501)" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="delete-confirm-btn">
+                            <i class="fas fa-trash-alt"></i> Delete Appointment
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

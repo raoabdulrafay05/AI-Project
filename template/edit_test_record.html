@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Test Record</title>
+    <link rel="stylesheet" href="/static/edit_test_record.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Edit Test Record</h1>
+
+      <!-- Form to update test record -->
+      <form action="/edit_test_record/{{ test_record_id }}" method="POST">
+        <div class="form-group">
+          <label for="patientid">Patient ID:</label>
+          <input type="text" id="patientid" name="patientid" placeholder="Enter Patient ID" required />
+        </div>
+
+        <div class="form-group">
+          <label for="testtype">Test Type:</label>
+          <input type="text" id="testtype" name="testtype" placeholder="Enter Test Type" required />
+        </div>
+
+        <div class="form-group">
+          <label for="testresult">Test Result:</label>
+          <input type="text" id="testresult" name="testresult" placeholder="Enter Test Result" required />
+        </div>
+
+        <div class="form-group">
+          <label for="testdate">Test Date:</label>
+          <input type="date" id="testdate" name="testdate" required />
+        </div>
+
+        <div class="form-group">
+          <label for="testprice">Test Price:</label>
+          <input type="number" id="testprice" name="testprice" placeholder="Enter Test Price" required />
+        </div>
+
+        <button type="submit" class="submit-button">Update Test Record</button>
+      </form>
+
+      <div class="button-container">
+        <button class="home-button" onclick="window.location.href='/'">Back to Home</button>
+        <button class="home-button" onclick="window.location.href='/view_all_lab_tests'">View All Tests</button>
+      </div>
+    </div>
+  </body>
+</html>

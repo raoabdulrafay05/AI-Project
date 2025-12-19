@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Test Management - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/lab_test_management.css">
+
+    <style>
+        body {
+            /* Consistent Background */
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-microscope"></i>
+                <h3>Lab Ops</h3>
+            </div>
+            
+            <div class="nav-section-title">PATHOLOGY ACTIONS</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/view_all_lab_tests'">
+                    <i class="fas fa-vials"></i>
+                    <span>All Lab Tests</span>
+                </button>
+
+                <button class="action-btn" onclick="window.location.href='/search_lab_test'">
+                    <i class="fas fa-search"></i>
+                    <span>Search Test</span>
+                </button>
+
+                <button class="action-btn" onclick="window.location.href='/enter_test_id'">
+                    <i class="fas fa-edit"></i>
+                    <span>Edit Test Result</span>
+                </button>
+
+                <button class="action-btn delete-btn" onclick="window.location.href='/delete_lab_test'">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>Delete Record</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <h1>Lab Test Management</h1>
+                <p>Record pathology results and manage test pricing.</p>
+            </div>
+
+            <div class="form-container">
+                <div class="form-card">
+                    <div class="card-header">
+                        <i class="fas fa-flask"></i>
+                        <h3>Add New Lab Report</h3>
+                    </div>
+
+                    <form action="/add_lab_test" method="POST" class="lab-form">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Patient ID</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-user-tag input-icon"></i>
+                                    <input type="text" name="patient_id" placeholder="Patient ID" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Test Type</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-dna input-icon"></i>
+                                    <input type="text" name="test_type" placeholder="e.g. CBC, X-Ray, MRI" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Test Date</label>
+                                <input type="date" name="test_date" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Price</label>
+                                <div class="input-icon-wrapper">
+                                    <span class="currency-icon">$</span>
+                                    <input type="number" name="price" placeholder="0.00" style="padding-left: 35px;" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Test Result / Observations</label>
+                            <div class="textarea-wrapper">
+                                <textarea name="test_result" placeholder="Enter detailed findings here..." required></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="add-btn">
+                            <i class="fas fa-file-medical-alt"></i> Save Lab Report
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Record Details</title>
+    <link rel="stylesheet" href="/static/view_an_test_record.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Test Record Details</h1>
+
+      <!-- Display Test Record Details -->
+      <div class="test-details">
+        <p><strong>Test ID:</strong> {{ test_record.testid }}</p>
+        <p><strong>Test Type:</strong> {{ test_record.testtype }}</p>
+        <p><strong>Test Result:</strong> {{ test_record.testresult }}</p>
+        <p><strong>Test Date:</strong> {{ test_record.testdate }}</p>
+        <p><strong>Test Price:</strong> {{ test_record.testprice }}</p>
+      </div>
+
+      <div class="button-container">
+        <button class="home-button" onclick="window.location.href='/view_all_lab_tests'">Back to All Test Records</button>
+        <button class="home-button" onclick="window.location.href='/enter_test_id'">Back to Enter Test ID</button>
+      </div>
+    </div>
+  </body>
+</html>

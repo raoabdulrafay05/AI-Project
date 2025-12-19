@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Bill Record</title>
+    <link rel="stylesheet" href="/static/view_a_bill_record.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Bill Record Details</h1>
+        {% if bill_record %}
+            <div class="form-container">
+                <p><strong>Bill ID:</strong> {{ bill_record.billid }}</p>
+                <p><strong>Patient ID:</strong> {{ bill_record.patientid }}</p>
+                <p><strong>Bill Date:</strong> {{ bill_record.billdate }}</p>
+                <p><strong>Payment Status:</strong> {{ bill_record.paymentstatus }}</p>
+                <p><strong>Expenses:</strong> {{ bill_record.expenses }}</p>
+            </div>
+        {% else %}
+            <p>No bill record found.</p>
+        {% endif %}
+
+        <div class="button-container">
+            <a href="/" class="home-button">
+                <button type="button">Home</button>
+            </a>
+            <a href="/billing" class="billing-button">
+                <button type="button">Billing Management</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

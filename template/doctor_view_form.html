@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter Doctor ID to View Information</title>
+  <link rel="stylesheet" href="/static/doctor_edit_form.css"> <!-- Link your existing CSS -->
+</head>
+<body>
+  <div class="container">
+    <h1>Enter Doctor ID to View Information</h1>
+
+    <!-- Doctor ID form -->
+    <form action="/view_doctor_details" method="GET">
+      <div class="form-group">
+        <label for="doctor_id"><strong>Doctor ID:</strong></label>
+        <input type="number" id="doctor_id" name="doctor_id" placeholder="Enter Doctor ID" required>
+      </div>
+
+      <button type="submit" class="home-button">View Doctor Details</button>
+    </form>
+
+    <!-- Button to navigate back to the previous page -->
+    <div class="button-container">
+      <button onclick="window.location.href='/doctor_management'">Back to Doctor Management</button>
+      <button onclick="window.location.href='/'">Back to Home</button>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Test Record</title>
+    <link rel="stylesheet" href="/static/view_an_test_record_form.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Enter Test ID To View Details</h1>
+
+      <!-- Form to input Test ID -->
+      <form action="/search_lab_test" method="get">
+        <div class="form-group">
+          <label for="test_id"></label>
+          <input type="text" id="test_id" name="test_id" placeholder="Test ID" required />
+        </div>
+
+        <div class="button-container">
+          <button type="submit" class="submit-button">Submit</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

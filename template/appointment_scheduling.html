@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Scheduling - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/appointment_scheduling.css">
+
+    <style>
+        body {
+            /* Consistent Background */
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-calendar-check"></i>
+                <h3>Scheduling</h3>
+            </div>
+            
+            <div class="nav-section-title">BOOKING ACTIONS</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/view_appointments'">
+                    <i class="fas fa-list-alt"></i>
+                    <span>View All</span>
+                </button>
+
+                <button class="action-btn" onclick="window.location.href='/view_appointment_details'">
+                    <i class="fas fa-info-circle"></i>
+                    <span>View Details</span>
+                </button>
+
+                <button class="action-btn" onclick="window.location.href='/edit_appointment'">
+                    <i class="fas fa-edit"></i>
+                    <span>Reschedule / Edit</span>
+                </button>
+
+                <button class="action-btn delete-btn" onclick="window.location.href='/delete_appointment'">
+                    <i class="fas fa-calendar-times"></i>
+                    <span>Cancel Appointment</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <h1>Appointment Scheduling</h1>
+                <p>Book new consultations and manage time slots.</p>
+            </div>
+
+            <div class="form-container">
+                <div class="form-card">
+                    <div class="card-header">
+                        <i class="fas fa-clock"></i>
+                        <h3>Book New Appointment</h3>
+                    </div>
+
+                    <form action="/add_appointment" method="POST" class="appointment-form">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Patient ID</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-user-injured input-icon"></i>
+                                    <input type="text" name="patientid" placeholder="Enter Patient ID" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Doctor ID</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-user-md input-icon"></i>
+                                    <input type="text" name="doctorid" placeholder="Enter Doctor ID" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" name="appointmentdate" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Time Slot</label>
+                                <input type="time" name="timeslot" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Appointment Status</label>
+                            <select name="status" required>
+                                <option value="Scheduled" selected>Scheduled</option>
+                                <option value="Pending">Pending Confirmation</option>
+                                <option value="Emergency">Emergency</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="add-btn">
+                            <i class="fas fa-check-double"></i> Confirm Booking
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

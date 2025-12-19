@@ -1,0 +1,117 @@
+/* Base styling */
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #a18cd1, #d78ac1);
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    animation: backgroundShift 15s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundShift {
+    0% {
+        background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+    }
+    100% {
+        background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    }
+}
+
+/* Container */
+.container {
+    background-color: #336b83;
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 480px;
+    animation: fadeInUp 0.8s ease forwards;
+    transform: translateY(30px);
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+h1 {
+    margin: 0 0 30px;
+    font-size: 28px;
+    color: #34495e;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+    animation: textPop 0.6s ease-out;
+}
+
+@keyframes textPop {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+input[type="text"] {
+    padding: 14px 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #2c3e50;
+    transition: border 0.3s, box-shadow 0.3s;
+    background-color: #fafafa;
+}
+
+input[type="text"]:focus {
+    border-color: #8e44ad;
+    outline: none;
+    background-color: #ffffff;
+    box-shadow: 0 0 8px rgba(142, 68, 173, 0.3);
+}
+
+/* Button */
+button {
+    padding: 14px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.4s, transform 0.2s ease;
+}
+
+button:hover {
+    background: linear-gradient(to right, #282f3c, #6a11cb);
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(106, 17, 203, 0.3);
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Directory - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/view_all_doctor.css" />
+
+    <style>
+        body {
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-user-md"></i>
+                <h3>Medical Staff</h3>
+            </div>
+            
+            <div class="nav-section-title">DIRECTORY</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/doctor_management'">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Add New Doctor</span>
+                </button>
+
+                <button class="action-btn active">
+                    <i class="fas fa-list-ul"></i>
+                    <span>View All Doctors</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <div>
+                    <h1>Doctors List</h1>
+                    <p>Directory of all medical specialists and staff.</p>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search by doctor name...">
+                </div>
+            </div>
+
+            <div class="table-container">
+                
+                {% if doctors %}
+                <table class="data-table" id="doctorsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Doctor Name</th>
+                            <th>Specialization</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Consultation Fee</th>
+                            <th>Salary</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for doctor in doctors %}
+                        <tr>
+                            <td><span class="id-badge">#{{ doctor.doctorid }}</span></td>
+                            
+                            <td>
+                                <div class="user-info">
+                                    <div class="avatar-circle">{{ doctor.fullname[0] }}</div>
+                                    <span class="name-text">{{ doctor.fullname }}</span>
+                                </div>
+                            </td>
+
+                            <td>
+                                <span class="spec-badge">{{ doctor.specialization }}</span>
+                            </td>
+
+                            <td>{{ doctor.phoneno }}</td>
+
+                            <td class="email-text">{{ doctor.email }}</td>
+
+                            <td class="money-text">Rs{{ doctor.doctorfee }}</td>
+
+                            <td class="money-text salary">${{ doctor.doctorsalary }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-user-md"></i>
+                        <p>No doctors found in the system.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("doctorsTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Column 1 is Name
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

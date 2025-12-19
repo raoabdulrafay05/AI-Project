@@ -1,0 +1,74 @@
+/* view_appointment_details.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Orbitron', sans-serif; /* Futuristic font */
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #f0f0f0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+    width: 90%;
+    max-width: 600px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #00ffe7;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px #00ffe7;
+  }
+  
+  .appointment-details p {
+    font-size: 1.2rem;
+    margin: 15px 0;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 4px solid #00ffe7;
+    border-radius: 5px;
+  }
+  
+  strong {
+    color: #00ffe7;
+  }
+  
+  .button-container {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .home-button {
+    background: #00ffe7;
+    color: #0f2027;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #00ffe7, 0 0 20px #00ffe7;
+  }
+  
+  .home-button:hover {
+    background: transparent;
+    color: #00ffe7;
+    border: 2px solid #00ffe7;
+    box-shadow: 0 0 20px #00ffe7;
+  }
+  
+  /* Optional: Include a cool font */
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+  

@@ -1,0 +1,107 @@
+/* Global Styling */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(
+    135deg,
+    #4e92c2,
+    #38748b
+  ); /* Soft gradient background */
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px; /* Set max width for container */
+  background: rgba(0, 0, 0, 0.4); /* Semi-transparent dark background */
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Larger shadow for depth */
+  padding: 40px;
+  text-align: center;
+  backdrop-filter: blur(10px); /* Apply blur effect to the background */
+}
+
+h1.title {
+  font-size: 2.5rem;
+  margin-bottom: 25px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); /* Text shadow for better contrast */
+}
+
+.doctor-details {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.doctor-details p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  line-height: 1.5;
+  color: #e6e6e6; /* Lighter text color */
+}
+
+.doctor-details strong {
+  color: #00bcd4; /* Use color for labels for better visual hierarchy */
+}
+
+button.home-button {
+  padding: 14px 30px;
+  background: linear-gradient(135deg, #009688, #00bcd4); /* Button gradient */
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Button shadow for depth */
+}
+
+button.home-button:hover {
+  background: linear-gradient(
+    135deg,
+    #00bcd4,
+    #009688
+  ); /* Hover reverse gradient */
+  transform: translateY(-4px); /* Button lift effect */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+button.home-button:focus {
+  outline: none;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.4); /* Focus shadow for accessibility */
+}
+
+button.home-button:active {
+  transform: translateY(2px); /* Button press effect */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Reset shadow on click */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    width: 90%; /* Full-width for mobile */
+    padding: 20px;
+  }
+
+  h1.title {
+    font-size: 2rem; /* Smaller heading on mobile */
+  }
+
+  .doctor-details p {
+    font-size: 1rem; /* Smaller text for mobile */
+  }
+
+  button.home-button {
+    font-size: 1rem; /* Smaller button text on mobile */
+    padding: 12px 25px; /* Adjust padding for smaller screen */
+  }
+}

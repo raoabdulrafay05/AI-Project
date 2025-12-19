@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedCore // Identity System</title>
+    <link rel="stylesheet" href="/static/scanner.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* Special style for the "Only Name" display */
+        .name-reveal {
+            font-size: 3rem; 
+            font-weight: 800; 
+            color: #ffffff;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 40px rgba(59, 130, 246, 0.6); /* Blue Glow */
+            margin-top: 20px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="dashboard-card">
+        
+        <nav class="nav-header">
+            <div class="logo">
+                <i class="ri-shield-check-fill"></i> MedCore
+            </div>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('scan')">Scan Face</button>
+                <button class="tab-btn" onclick="switchTab('register')">Register New</button>
+                <div class="active-pill"></div>
+            </div>
+        </nav>
+
+        <div class="content-wrapper">
+            
+            <div class="camera-container">
+                <div class="camera-viewport">
+                    <video id="webcam" autoplay muted playsinline></video>
+                    <div class="viewport-overlay">
+                        <div class="focus-box">
+                            <div class="corner tl"></div><div class="corner tr"></div>
+                            <div class="corner bl"></div><div class="corner br"></div>
+                        </div>
+                        <div class="scan-laser"></div>
+                    </div>
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot pulse"></div>
+                    <span>System Online</span>
+                </div>
+            </div>
+
+            <div class="panels">
+                
+                <div id="panel-scan" class="panel active">
+                    
+                    <div class="info-box">
+                        <p class="hint-text">Look at the camera and click verify.</p>
+                        
+                        <div id="result-display" style="display:none;"> 
+                            <h1 id="res-name" class="name-reveal">--</h1>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="scanFace()">
+                        <i class="ri-focus-3-line"></i> Verify Identity
+                    </button>
+                </div>
+
+                <div id="panel-register" class="panel">
+                    <form onsubmit="event.preventDefault(); registerUser();">
+                        <div class="form-grid">
+                            <div class="input-wrap full">
+                                <label>Full Name</label>
+                                <input type="text" id="reg-name" placeholder="Enter Name..." required>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary">
+                            <i class="ri-user-add-line"></i> Save Profile
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- 1. WEBCAM SETUP ---
+        const video = document.getElementById('webcam');
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+
+        async function startWebcam() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+            } catch (err) {
+                alert("Please enable camera access");
+            }
+        }
+        window.onload = startWebcam;
+
+        function captureFrame() {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            return canvas.toDataURL('image/jpeg', 0.8);
+        }
+
+        // --- 2. SCAN LOGIC (NAME ONLY) ---
+        async function scanFace() {
+            const btn = document.querySelector('#panel-scan .btn-primary');
+            const hint = document.querySelector('.hint-text');
+            const resultBox = document.getElementById('result-display');
+            const nameText = document.getElementById('res-name');
+
+            // UI Loading
+            btn.innerHTML = '<i class="ri-loader-4-line"></i> Analyzing...';
+            btn.disabled = true;
+            hint.innerText = "Processing...";
+            hint.style.display = 'block';
+            resultBox.style.display = 'none';
+
+            try {
+                const image = captureFrame();
+                const response = await fetch('/api/scan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: image })
+                });
+                const data = await response.json();
+
+                if (data.match) {
+                    // Success: Hide hint, Show Name
+                    hint.style.display = 'none';
+                    resultBox.style.display = 'block';
+                    nameText.innerText = data.name;
+                } else {
+                    // Fail
+                    hint.style.display = 'block';
+                    hint.innerText = "Unknown Person";
+                }
+
+            } catch (error) {
+                hint.innerText = "System Error";
+            }
+
+            // Reset Button
+            btn.innerHTML = '<i class="ri-focus-3-line"></i> Verify Identity';
+            btn.disabled = false;
+        }
+
+        // --- 3. REGISTER LOGIC (AUTO-FILL ID) ---
+        async function registerUser() {
+            const btn = document.querySelector('#panel-register .btn-secondary');
+            const name = document.getElementById('reg-name').value;
+
+            if(!name) return alert("Please enter a name");
+
+            btn.innerHTML = "Saving...";
+            
+            // Auto-generate hidden ID so backend doesn't break
+            const randomId = "ID-" + Math.floor(Math.random() * 10000); 
+
+            try {
+                const image = captureFrame();
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        image: image,
+                        name: name,
+                        docId: randomId,   // Hidden from user
+                        dept: 'General'    // Hidden from user
+                    })
+                });
+                const data = await response.json();
+                
+                if(data.success) {
+                    alert("Saved: " + name);
+                    document.getElementById('reg-name').value = ''; // Clear input
+                    switchTab('scan'); // Auto-switch back to scan
+                } else {
+                    alert("Error: " + data.message);
+                }
+
+            } catch (error) {
+                alert("Connection Failed");
+            }
+            btn.innerHTML = '<i class="ri-user-add-line"></i> Save Profile';
+        }
+
+        // --- 4. TABS ---
+        function switchTab(mode) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(`panel-${mode}`).classList.add('active');
+            
+            document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+            const pill = document.querySelector('.active-pill');
+            
+            if(mode === 'scan') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                pill.style.transform = 'translateX(0)';
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                pill.style.transform = 'translateX(100%)';
+            }
+        }
+    </script>
+</body>
+</html>

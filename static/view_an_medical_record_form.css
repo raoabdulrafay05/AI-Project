@@ -1,0 +1,167 @@
+/* Reset & Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ff9a8b, #ff6a88); /* Soft pink and purple gradient */
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 1s ease;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #f0f0f0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 8px;
+    display: block;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    margin-top: 8px;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+    border-color: #ff6347; /* Bright coral color */
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.submit-button {
+    background-color: #ff6347; /* Bright coral */
+    color: #fff;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.submit-button:hover {
+    transform: scale(1.05);
+    background-color: #e53e3e; /* Darker coral */
+}
+
+.home-button {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 32px;
+    background: linear-gradient(to right, #00c6ff, #0072ff); /* Blue gradient */
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.home-button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to right, #00b5e2, #006bb3); /* Slightly darker blue gradient */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    textarea {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .submit-button {
+        padding: 12px 28px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    textarea {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .submit-button {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Management - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/billing_management.css">
+
+    <style>
+        body {
+            /* Consistent Background */
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <h3>Billing Ops</h3>
+            </div>
+            
+            <div class="nav-section-title">FINANCIAL ACTIONS</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/view_all_bills'">
+                    <i class="fas fa-list-ol"></i>
+                    <span>View All Bills</span>
+                </button>
+
+                <button class="action-btn" onclick="window.location.href='/find_bill'">
+                    <i class="fas fa-search-dollar"></i>
+                    <span>Find a Bill</span>
+                </button>
+
+                <button class="action-btn" onclick="window.location.href='/enter_bill_id'">
+                    <i class="fas fa-file-signature"></i>
+                    <span>Edit Bill</span>
+                </button>
+
+                <button class="action-btn delete-btn" onclick="window.location.href='/delete_bill'">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>Delete Bill</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <h1>Billing Management</h1>
+                <p>Generate invoices and track patient payments.</p>
+            </div>
+
+            <div class="form-container">
+                <div class="form-card">
+                    <div class="card-header">
+                        <i class="fas fa-receipt"></i>
+                        <h3>Generate New Bill</h3>
+                    </div>
+
+                    <form action="/add_bill" method="POST" class="billing-form">
+                        
+                        <div class="form-group full-width">
+                            <label>Patient ID</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-user-tag input-icon"></i>
+                                <input type="number" name="patient_id" placeholder="Enter Patient ID" required>
+                            </div>
+                        </div>
+
+                        <div class="section-label">Service References (IDs)</div>
+                        <div class="form-row three-col">
+                            <div class="form-group">
+                                <label>Appointment ID</label>
+                                <input type="number" name="appointment_id" placeholder="Appt ID" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Pharmacy ID</label>
+                                <input type="number" name="pharmacy_id" placeholder="Pharm ID" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Lab Test ID</label>
+                                <input type="number" name="lab_test_id" placeholder="Lab ID" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Billing Date</label>
+                                <input type="date" name="bill_date" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Payment Status</label>
+                                <select name="payment_status" required>
+                                    <option value="Unpaid" selected>Unpaid</option>
+                                    <option value="Paid">Paid</option>
+                                    <option value="Pending">Pending Insurance</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="add-btn">
+                            <i class="fas fa-print"></i> Generate Invoice
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+/* General Styles */
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #acb6e5);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container */
+.container {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 50%;
+    max-height: 90vh;
+    overflow: auto;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.container:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Title */
+.title {
+    font-size: 28px;
+    color: #333;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    animation: slideIn 1s ease-in-out;
+}
+
+/* Record Details */
+.form-container {
+    text-align: left;
+    margin: 0 auto;
+    max-width: 90%;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.form-container p {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Section */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.button-container a button {
+    background: linear-gradient(45deg, #1e90ff, #00c6ff);
+    border: none;
+    padding: 12px 25px;
+    color: white;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(30, 144, 255, 0.3);
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.button-container a button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(30, 144, 255, 0.5);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

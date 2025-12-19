@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Records - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/medical_records_management.css">
+
+    <style>
+        body {
+            /* Consistent Background */
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-file-medical"></i>
+                <h3>Records Ops</h3>
+            </div>
+            
+            <div class="nav-section-title">DATABASE ACTIONS</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/view_all_medical_records'">
+                    <i class="fas fa-database"></i>
+                    <span>All Records</span>
+                </button>
+
+                <button class="action-btn" onclick="window.location.href='/view_medical_record_details'">
+                    <i class="fas fa-search-plus"></i>
+                    <span>View Details</span>
+                </button>
+
+                <button class="action-btn" onclick="window.location.href='/enter_medical_record_id'">
+                    <i class="fas fa-file-signature"></i>
+                    <span>Edit Record</span>
+                </button>
+
+                <button class="action-btn delete-btn" onclick="window.location.href='/delete_medical_record'">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>Delete Record</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <h1>Medical Records</h1>
+                <p>Log patient diagnoses and prescription history.</p>
+            </div>
+
+            <div class="form-container">
+                <div class="form-card">
+                    <div class="card-header">
+                        <i class="fas fa-notes-medical"></i>
+                        <h3>Add New Medical Record</h3>
+                    </div>
+
+                    <form action="/add_medical_record" method="POST" class="record-form">
+                        
+                        <div class="form-row three-col">
+                            <div class="form-group">
+                                <label>Patient ID</label>
+                                <input type="text" name="patient_id" placeholder="Patient ID" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Doctor ID</label>
+                                <input type="text" name="doctor_id" placeholder="Doctor ID" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" name="date" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Diagnosis Details</label>
+                            <div class="textarea-wrapper">
+                                <i class="fas fa-stethoscope textarea-icon"></i>
+                                <textarea name="diagnosis" placeholder="Describe the diagnosis here..." required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Prescription</label>
+                            <div class="textarea-wrapper">
+                                <i class="fas fa-pills textarea-icon"></i>
+                                <textarea name="prescription" placeholder="List medications and dosages..." required></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="add-btn">
+                            <i class="fas fa-save"></i> Save Medical Record
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

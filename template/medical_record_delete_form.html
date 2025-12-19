@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Medical Record - Diagnosify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/view_an_medical_record.css">
+
+    <style>
+        body {
+            /* Consistent Background */
+            background: linear-gradient(rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.8)), 
+                        url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-file-prescription"></i>
+                <h3>Records Ops</h3>
+            </div>
+            
+            <div class="nav-section-title">ACTIONS</div>
+            
+            <nav class="action-nav">
+                <button class="action-btn home-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                
+                <div class="divider"></div>
+
+                <button class="action-btn" onclick="window.location.href='/medical_records_management'">
+                    <i class="fas fa-file-medical-alt"></i>
+                    <span>Records Management</span>
+                </button>
+
+                <button class="action-btn" onclick="window.location.href='/view_all_medical_records'">
+                    <i class="fas fa-database"></i>
+                    <span>View All Records</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Diagnosify System</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <h1>Remove Medical Record</h1>
+                <p>Permanently delete a clinical record from the database.</p>
+            </div>
+
+            <div class="form-container">
+                <div class="form-card delete-card">
+                    
+                    <div class="card-header-center">
+                        <div class="icon-bg">
+                            <i class="fas fa-folder-minus"></i>
+                        </div>
+                        <h3>Delete Confirmation</h3>
+                        <p class="warning-text">This will permanently remove the diagnosis and prescription data.</p>
+                    </div>
+
+                    <form action="/delete_medical_record" method="POST" class="delete-form">
+                        
+                        <div class="form-group">
+                            <label for="medical_record_id">Medical Record ID</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fas fa-hashtag input-icon"></i>
+                                <input type="text" id="medical_record_id" name="medical_record_id" placeholder="Enter Record ID" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="delete-confirm-btn">
+                            <i class="fas fa-trash-alt"></i> Delete Record
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

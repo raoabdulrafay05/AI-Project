@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Bill</title>
+    <link rel="stylesheet" href="/static/edit_bill.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Bill</h1>
+        <form method="POST">
+            <label for="patientid">Patient ID:</label>
+            <input type="text" id="patientid" name="patientid" required>
+
+            <label for="appointmentid">Appointment ID:</label>
+            <input type="text" id="appointmentid" name="appointmentid" required>
+
+            <label for="pharmacyid">Pharmacy ID:</label>
+            <input type="text" id="pharmacyid" name="pharmacyid" required>
+
+            <label for="lab_test_id">Lab Test ID:</label>
+            <input type="text" id="lab_test_id" name="lab_test_id" required>
+
+            <label for="paymentstatus">Payment Status:</label>
+            <select id="paymentstatus" name="paymentstatus" required>
+                <option value="Pending">Pending</option>
+                <option value="Paid">Paid</option>
+            </select>
+
+            <label for="billdate">Bill Date:</label>
+            <input type="date" id="billdate" name="billdate" required>
+
+            <button type="submit">Update Bill</button>
+        </form>
+    </div>
+</body>
+</html>

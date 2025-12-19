@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Doctor Details</title>
+  <link rel="stylesheet" href="/static/add_doctor.css"> <!-- Link your CSS file here -->
+</head>
+<body>
+    <div class="container">
+        <h2>Update Doctor Details</h2>
+        <form method="POST" action="/update_doctor">
+            <input type="hidden" name="doctor_id" value="{{ doctor.doctorid }}">
+
+            <label for="FullName">Full Name:</label>
+            <input type="text" id="FullName" name="FullName" value="{{ doctor.fullname }}" required>
+
+            <label for="Specialization">Specialization:</label>
+            <input type="text" id="Specialization" name="Specialization" value="{{ doctor.specialization }}" required>
+
+            <label for="PhoneNo">Phone Number:</label>
+            <input type="text" id="PhoneNo" name="PhoneNo" value="{{ doctor.phoneno }}" required>
+
+            <label for="Email">Email:</label>
+            <input type="email" id="Email" name="Email" value="{{ doctor.email }}" required>
+
+            <label for="DepartmentID">Department ID:</label>
+            <input type="number" id="DepartmentID" name="DepartmentID" value="{{ doctor.departmentid }}" required>
+
+            <label for="DoctorFee">Doctor Fee:</label>
+            <input type="number" id="DoctorFee" name="DoctorFee" value="{{ doctor.doctorfee }}" required>
+
+            <label for="Salary">Salary:</label>
+            <input type="number" id="Salary" name="Salary" value="{{ doctor.doctorsalary }}" required>
+
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</body>
+</html>

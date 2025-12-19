@@ -1,0 +1,146 @@
+/* Global Styling */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(
+    135deg,
+    #264d5e,
+    /* Warm coral color */ #2a3276 /* Deep pinkish-red */
+  ); /* New gradient for a modern, vibrant look */
+  color: #fff;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+/* Container Styling */
+.container {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+  border-radius: 16px; /* More rounded corners */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Deep shadow effect */
+  padding: 40px;
+  text-align: center;
+}
+
+/* Heading Styling */
+h1 {
+  font-size: 2.8rem;
+  margin-bottom: 25px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6); /* Stronger text shadow */
+}
+
+/* Input Field Styling */
+form input {
+  width: 100%;
+  padding: 16px;
+  margin: 12px 0;
+  border-radius: 10px; /* Rounder input fields */
+  border: none;
+  background-color: rgba(255, 255, 255, 0.3); /* Lighter background */
+  color: #fff;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+}
+
+form input::placeholder {
+  color: rgba(255, 255, 255, 0.8); /* Slightly lighter placeholder */
+}
+
+/* Button Styling */
+form button {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(
+    135deg,
+    #092541,
+    /* Coral color */ #0a2e2a /* Deep pink */
+  );
+  border: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow */
+}
+
+/* Button Hover Effect */
+form button:hover {
+  background: linear-gradient(
+    135deg,
+    #ff3e4d,
+    /* Inverted gradient */ #4c398b /* Inverted gradient */
+  );
+  transform: translateY(-6px); /* Slightly higher lift on hover */
+}
+
+/* Button Focus Effect */
+form button:focus {
+  outline: none;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4); /* Stronger focus shadow */
+}
+
+/* Button Active Effect */
+form button:active {
+  transform: translateY(2px); /* Slight push effect when clicked */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25); /* Subtle shadow when clicked */
+}
+
+/* General Button Styling */
+button {
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #3b100c, #840d17); /* Updated gradient */
+  border: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease,
+    box-shadow 0.3s ease;
+  margin-top: 25px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+}
+
+/* Button Hover Effect */
+button:hover {
+  background: linear-gradient(
+    135deg,
+    #ff3e4d,
+    #ff6f61
+  ); /* Reverse hover gradient */
+  transform: translateY(-7px); /* Increased lift effect on hover */
+  box-shadow: 0px 10px 18px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+/* Button Focus Effect */
+button:focus {
+  outline: none;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3); /* Focus shadow */
+}
+
+/* Button Active Effect */
+button:active {
+  transform: translateY(3px); /* Slight push effect when clicked */
+  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.15); /* Reset shadow */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    width: 90%; /* Make container take up more space on smaller screens */
+  }
+
+  button {
+    padding: 14px 28px; /* Smaller button on mobile */
+    font-size: 1.1rem; /* Adjust font size */
+  }
+}

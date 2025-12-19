@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enter Test ID</title>
+    <link rel="stylesheet" href="/static/edit_test_form.css" />
+    <!-- Add inside <head> -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  </head>
+  <body>
+    <div class="container">
+      <h1>Enter Test ID</h1>
+
+      <form action="/enter_test_id" method="POST">
+        <div class="form-group">
+          <label for="test_id"></label>
+          <input type="text" id="test_id" name="test_id" placeholder="Enter Test ID" required />
+        </div>
+
+        <button type="submit" class="submit-button">Enter Test ID</button>
+      </form>
+
+      <div class="button-container">
+        <button class="home-button" onclick="window.location.href='/'">Back to Home</button>
+      </div>
+    </div>
+  </body>
+</html>

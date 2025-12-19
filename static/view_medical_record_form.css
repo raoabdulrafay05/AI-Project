@@ -1,0 +1,179 @@
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1f2a44, #5c2e6b); /* Rich gradient background */
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  border-radius: 20px;
+  backdrop-filter: blur(10px); /* Soft blur effect */
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+  animation: fadeIn 1s ease;
+  transition: all 0.3s ease;
+  text-align: center;
+  backdrop-filter: blur(12px);
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+}
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #ddd;
+  font-weight: 500;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 8px;
+  display: block;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.15); /* Soft background */
+  color: #fff;
+  margin-top: 8px;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  border-color: #7a5cc4; /* Focus color */
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submit-button {
+  background-color: #6a8ecf; /* Cool blue shade */
+  color: #fff;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.submit-button:hover {
+  transform: scale(1.05);
+  background-color: #3f68b0; /* Darker hover shade */
+}
+
+.home-button {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 32px;
+  background: linear-gradient(to right, #1d976c, #93f9b9);
+  color: #000;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.home-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to right, #278e75, #60e0b5);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .container {
+    padding: 30px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  textarea {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .submit-button {
+    padding: 12px 28px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  textarea {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .submit-button {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,141 @@
+/* Global Styling */
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #4e92c2, #38748b); /* Updated Gradient for a soothing, modern look */
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 550px; /* Reduced width for a more compact form */
+    background: rgba(0, 0, 0, 0.4); /* Transparent dark background with stronger contrast */
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Deeper shadow for depth */
+    padding: 40px;
+    text-align: center;
+    backdrop-filter: blur(10px); /* Added blur effect to background */
+  }
+  
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 25px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5); /* Stronger text shadow for better readability */
+    letter-spacing: 1px;
+  }
+  
+  form input {
+    width: 100%;
+    padding: 16px;
+    margin: 12px 0;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.3); /* Lighter background with more opacity */
+    color: #fff;
+    font-size: 1.1rem;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  form input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Slightly muted placeholder */
+  }
+  
+  form input:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.5); /* Lighter background on focus */
+    border: 2px solid #00bcd4; /* Blue border for focus effect */
+  }
+  
+  form button {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #009688, #00bcd4); /* Smooth button gradient */
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25); /* Subtle shadow for button */
+  }
+  
+  form button:hover {
+    background: linear-gradient(135deg, #00bcd4, #009688); /* Hover effect with reverse gradient */
+    transform: translateY(-6px); /* Lift effect on hover */
+    box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+  }
+  
+  form button:focus {
+    outline: none;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35); /* Strong focus effect */
+  }
+  
+  form button:active {
+    transform: translateY(3px); /* Push effect when clicked */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25); /* Reset shadow on click */
+  }
+  
+  /* Button Styling */
+  button {
+    padding: 16px 35px;
+    background: linear-gradient(135deg, #009688, #00bcd4); /* Consistent button gradient */
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 20px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Added depth to button */
+  }
+  
+  /* Button Hover Effect */
+  button:hover {
+    background: linear-gradient(135deg, #00bcd4, #009688); /* Reverse gradient effect */
+    transform: translateY(-6px); /* Lift effect on hover */
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+  }
+  
+  /* Button Focus Effect */
+  button:focus {
+    outline: none;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.35); /* Enhanced focus effect */
+  }
+  
+  /* Button Active Effect */
+  button:active {
+    transform: translateY(3px); /* Push effect when clicked */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Soft reset shadow */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .container {
+      width: 90%; /* Full-width for smaller screens */
+    }
+  
+    button {
+      padding: 14px 28px; /* Adjust padding for small screens */
+      font-size: 1.1rem; /* Slightly smaller font for smaller devices */
+    }
+  
+    form input {
+      padding: 14px; /* Adjust padding for small screens */
+      font-size: 1rem;
+    }
+  
+    h1 {
+      font-size: 2.2rem; /* Smaller heading on small screens */
+    }
+  }
+  

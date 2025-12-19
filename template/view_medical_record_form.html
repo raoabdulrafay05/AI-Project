@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Medical Record</title>
+  <link rel="stylesheet" href="/static/view_medical_record_form.css"> <!-- Link to your external CSS -->
+</head>
+<body>
+  <div class="container">
+    <h1>View Medical Record</h1>
+    <p>Please enter the Medical Record ID to view the details.</p>
+
+    <!-- Form to enter medical record ID -->
+    <form method="POST" action="/view_medical_record_details">
+        
+        <div class="form-group">
+            <label for="MedicalRecordID">Medical Record ID:</label>
+            <input type="text" id="MedicalRecordID" name="medical_record_id" placeholder="Enter Medical Record ID" required>
+        </div>
+    
+        <div class="form-group">
+            <button type="submit" class="submit-button">View Record</button>
+        </div>
+    </form>
+  </div>
+</body>
+</html>
